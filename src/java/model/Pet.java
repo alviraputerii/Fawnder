@@ -69,7 +69,7 @@ public class Pet {
     }
 
     public String getPhoto() {
-        return petBreeds;
+        return petBreeds.toLowerCase();
     }
 
     public void setPhoto() {

@@ -1,0 +1,254 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Fawnder!</title>
+        <style type="text/css">
+            .value {
+                font-weight: bold;
+            }
+
+            .ui-carousel {
+                margin-bottom: 20px;
+            }
+            .ui-menubar  {
+                background: #968c83 !important;
+                font-weight: bolder !important;
+            }
+            .ui-widget{
+                font-size: 1em !important;
+            }
+            .ui-widget-content a{
+                color: #ffffff !important;
+            }
+            .ui-menu, .ui-menu .ui-menu-child{
+                background: #968c83;
+            }
+            .btn{
+                background-color: #d6d2c4;
+                border: none;
+                color: black;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                border-radius: 4px;
+            }
+            .ui-datagrid-column, .ui-g-12, .ui-md-3{
+                background-color: #ebd4d4;
+            }
+            .label{
+                margin-top: 5px;
+                background-color: #e6e6e6;
+                font-size: .8075rem;
+                border-radius: 10px;
+                font-weight: 500;
+                line-height: 2.5;
+                padding: 0 10px;
+            }
+            .ui-button{
+                color: black;
+                border: none;
+                margin : auto;
+                text-shadow: none;
+                padding: 3px;
+                background: #d6d2c4 !important;
+            }
+            .btnEdit{
+                margin-left: 40px; 
+            }
+            .info{
+                margin-left: 50px;
+                float: right;
+                font-weight:bold;
+                margin-right: 10px;
+            }
+            .info2{
+                float: right;
+                font-weight:bold;
+                margin-right: 10px;
+            }
+            .ui-widget-header{
+                background: #bbbfca;
+            }
+            .ui-toggleswitch {
+                position: relative;
+                display: inline-block;
+                width: 60px;
+                height: 28px;
+            }
+            .ui-toggleswitch-slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+            .ui-toggleswitch-slider:before {
+                position: absolute;
+                content: "";
+                height: 23px;
+                width: 26px;
+                left: 4px;
+                bottom: 3px;
+                background-color: white;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+            .ui-toggleswitch-slider:after {
+                background-color: aqua;
+            }
+            .header-logo{
+                width: 200px; 
+                height: 200px;  
+                border-radius: 50%;
+                margin: 20px;
+            }
+            .vl {
+                border-left: 3px solid gray;
+                height: 200px;
+            }
+            .ui-inputfield{
+                width: 95% !important;
+            }
+            .kolom{
+                padding: 20px;
+            }
+        </style>
+    </h:head>
+
+    <h:body style="background-color: #fff5ea">
+        <h:form>  
+            <p:growl id="messages"/>
+            <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+            <p:megaMenu style="margin-top:20px;">
+                <p:menuitem value="Back" icon="pi pi-sign-out" action="home"/>
+            </p:megaMenu>
+        </h:form>
+        
+        <p:dialog  header="Add Pet" widgetVar="dlg3" modal="true" height="400" width="410" style="background-color: #ebd4d4">
+            <br/>
+            <h:form id="addPetDialog">
+            <h:panelGrid columns="2" columnClasses="kolom">
+                <p:outputLabel value="Pet Name" style="font-weight:bold"/>
+                <p:inputText value="#{user.petmodel.petName}" required="true" label="Pet Name"  id="pname"/>
+                <p:outputLabel value="Pet Age" style="font-weight:bold"/>
+                <p:inputText value="#{user.petmodel.petAge}" required="true" label="Pet Age" id="page"/>
+                <p:outputLabel value="Pet Breed" style="font-weight:bold"/>
+                <p:inputText value="#{user.petmodel.petBreeds}" required="true" label="Pet Breed"  id="pbreed"/>
+                <p:outputLabel value="Pet Gender" style="font-weight:bold"/>
+                <p:selectOneRadio id="pgender" value="#{user.petmodel.petGender}">
+                    <f:selectItem itemLabel="Male" itemValue="male" />
+                    <f:selectItem itemLabel="Female" itemValue="female" />
+                </p:selectOneRadio>   
+                <p:outputLabel value="Visible" style="font-weight:bold"/>
+                <p:toggleSwitch value="#{user.petmodel.visibility}"/>
+            </h:panelGrid>
+            <p:commandButton value="Add Pet" styleClass="btn" style="width: 100%" action="#{user.insertPet()}"
+                             onclick="PF('dlg3').hide();" update=":dataTableManagePet" />
+            </h:form>
+            <br/>
+        </p:dialog>
+
+        <h:form id="info">
+            <p:growl id="msg" />
+            <h:panelGrid columns="3" style="margin: 30px auto;">
+                <h:panelGrid columns="2" style="margin: 0 auto;">
+                    <h:graphicImage value="resources/images/logo2.JPG" styleClass="header-logo"/> 
+                    <h1 style="margin-right: 20px">Meet a Partner</h1>
+                    <h1 style="text-align: center">for your Dog</h1>
+                </h:panelGrid>
+                <p class="vl"></p>
+                <h:panelGroup style="margin-left: 50px; ">
+                    <br/><h:outputText value="#{user.daoUser.loggedUser.username}" style="font-size: 25px; font-weight:bold;margin-left: 50px;"/><br/>
+                    <h:panelGrid columns="5" style="margin-left: 45px;margin-right: 20px">
+                        <h:panelGroup style="padding-right: 20px">
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Name" styleClass="info2"/>
+                                <h:outputText value="#{user.daoUser.loggedUser.nameOwner}"/>
+                            </h:panelGrid>
+                        </h:panelGroup> 
+                        <h:outputText value="|" style="color: #fff5ea"/>
+                        <h:panelGroup style="padding-right: 20px">
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Contact" styleClass="info2"/>
+                                <h:outputText value="#{user.daoUser.loggedUser.contactOwner}"/>
+                            </h:panelGrid>
+                        </h:panelGroup> 
+                        <h:outputText value="|" style="color: #fff5ea"/>
+                         <h:panelGroup style="padding-right: 20px">
+                            <h:panelGrid columns="2" >
+                                <h:outputText value="Location" styleClass="info2"/>
+                                <h:outputText value="#{user.daoUser.loggedUser.location}"/>
+                            </h:panelGrid>
+                        </h:panelGroup>
+                    </h:panelGrid>           
+                </h:panelGroup>
+            </h:panelGrid>
+        </h:form>
+
+        <hr style="width: 80%;"/><br/>
+
+         <h:form>
+            <div style="text-align:center">
+                <h1>Manage your Dog!</h1>
+                <p:commandButton value="Add Dog" styleClass=" btn btnEdit" onclick="PF('dlg3').show();">
+                <p:ajax event="click" listener="#{user.reset()}" update=":addPetDialog"/>
+                </p:commandButton>
+            </div>
+        </h:form><br/><br/>
+        
+        <p:dialog id="dPet"  header="Edit Pet" widgetVar="dlg4" modal="true" height="400" width="410" style="background-color: #ebd4d4">
+            <h:form id="dlgData">
+            <h:panelGrid columns="2" columnClasses="kolom">
+                <p:outputLabel value="Pet Name" style="font-weight:bold"/>
+                <p:inputText value="#{user.petmodel.petName}" id="pname"/>
+                <p:outputLabel value="Pet Age" style="font-weight:bold"/>
+                <p:inputText value="#{user.petmodel.petAge}" id="page"/>
+                <p:outputLabel value="Pet Breed" style="font-weight:bold"/>
+                <p:inputText value="#{user.petmodel.petBreeds}" id="pbreed"/>
+                <p:outputLabel value="Pet Gender" style="font-weight:bold"/>
+                <p:selectOneRadio id="pgender" value="#{user.petmodel.petGender}">
+                    <f:selectItem itemLabel="Male" itemValue="male" />
+                    <f:selectItem itemLabel="Female" itemValue="female" />
+                </p:selectOneRadio>   
+                <p:outputLabel value="Visible" style="font-weight:bold"/>
+                <p:toggleSwitch value="#{user.petmodel.visibility}"/>
+            </h:panelGrid>
+                <p:commandButton value="Update Pet" styleClass="btn" style="width: 100%" action="#{user.daoPet.updatePet(user.petmodel)}" 
+                                 onclick="PF('dlg4').hide();" update=":dataTableManagePet"/>
+            </h:form>
+            <br/>
+        </p:dialog>
+        
+        <h:form id="dataTableManagePet">
+            <p:dataGrid var="u" value="#{user.daoPet.getDataPetByUser(user.daoUser.loggedUser)}" columns="4" layout="grid"
+                        rows="12" paginator="true" id="users"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="12,24,36">
+                <p:panel style="text-align:center">
+                    <h:panelGrid columns="1" style="width:100%">
+                        <p:graphicImage value="resources/images/#{u.photo}.jpg" style="width: 250px; height: 250px;"/> 
+                        <b style="font-size: 14px">#{u.petName}</b>
+                        <b>#{u.petAge} months</b><br/>
+                        <i class="pi pi-map-marker">#{user.daoUser.getUserFromPet(u).location}</i><br/>
+                        <b class="label">#{u.petGender}</b>
+                        <b class="label">#{u.visibility2}</b><br/>
+                        <b>#{u.petBreeds}</b><br/><br/>
+                        <p:commandButton value="Edit" class="button" action="#{user.setPetmodel(u)}" onclick="PF('dlg4').show();" process="@this users" partialSubmit="true" update=":dlgData"/>
+
+                    </h:panelGrid>
+                </p:panel>
+            </p:dataGrid>
+        </h:form>
+    </h:body>
+</html>
+

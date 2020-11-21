@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Fawnder!</title>
+    <style type="text/css">
+        .btn{
+            background-color: #d6d2c4;
+            border: none;
+            color: black;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            margin-left: 12px;
+            width: 95%;
+        }
+        .ui-button{
+            color: black;
+            border: none;
+            text-shadow: none;
+            padding: 3px;
+            background: #d6d2c4 !important;
+        }
+        .garis{
+            width: 40%;
+            display: inline-block;
+            margin-left: 10px;
+            margin-right : 10px;
+            margin-top: 7px;
+        }
+        .ui-inputfield{
+            margin-left: 7px !important;
+            width: 92% !important;
+        }
+    </style>
+</h:head>
+
+<h:body style="background-color: #fff5ea">
+    <h:form>
+    <h:panelGrid columns="2" style="margin: 40px auto;" border="1">
+        <h:panelGroup>
+            <h:graphicImage value="resources/images/logo.JPG" style="width: 400px; height: 540px;" /> 
+        </h:panelGroup>
+        <h:panelGroup>
+            <h2 style="margin-left: 100px;margin-right: 70px;">REGISTRATION</h2>
+                <h:panelGroup>
+                    <p:inputText value="#{user.usermodel.username}" required="true" label="Username" id="uname" placeholder="Username">
+                        <f:validator validatorId="model.Username"/>
+                    </p:inputText><br/>
+                    <h:messages for="uname" layout="table" style=" color: red"/><br/>
+                    <p:password value="#{user.usermodel.password}" required="true" label="Password" id="pass" placeholder="Password" style="margin-right: 10px;"/><br/>
+                     <h:messages for="pass" layout="table" style=" color: red"/><br/>
+                    <p:inputText value="#{user.usermodel.nameOwner}" required="true" label="Owner Name" id="oname" placeholder="Owner Name" style="margin-right: 10px;"/><br/>
+                     <h:messages for="oname" layout="table" style=" color: red"/><br/>
+                    <p:inputText value="#{user.usermodel.contactOwner}" required="true" label="Contact Number" id="ocontact" placeholder="Contact Number" style="margin-right: 10px;"/><br/>
+                     <h:messages for="ocontact" layout="table" style=" color: red"/><br/>
+                    <p:inputText value="#{user.usermodel.location}" required="true" label="Location" id="loc" placeholder="Location" style="margin-right: 10px;"/><br/>
+                    <h:messages for="loc" layout="table" style=" color: red"/>
+                </h:panelGroup>
+            <br/><p:commandButton value="Register" styleClass="btn" type="submit" action="#{user.daoUser.insertUser(user.usermodel)}" update="@form" /><br/><br/>
+            <hr class="garis"/>OR<hr class="garis"/><br/><br/>
+            <h:outputText value="Have an account?" style="margin-left: 120px"/><br/><br/>
+            <p:commandButton value="Login" styleClass="btn" action="index.xhtml" immediate="true"/><br/>
+        </h:panelGroup>
+    </h:panelGrid>  
+    </h:form>
+</h:body>
+</html>
+

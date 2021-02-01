@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="1873004_-_TuBes" default="default" basedir=".">
-    <description>Builds, tests, and runs the project 1873004 - TuBes.</description>
+<project name="1773031_-_1873004_-_Netbeans_Project" default="default" basedir=".">
+    <description>Builds, tests, and runs the project 1773031 - 1873004 - Netbeans Project.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 

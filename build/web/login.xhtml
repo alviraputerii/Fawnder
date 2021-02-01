@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Fawnder!</title>
+        <link rel="icon" 
+              href="resources/appdata/logoH.ico"/>
+        <meta charset="UTF-8"/>
+        <meta name="description" 
+              content="Meet a Partner for your Dog"/>
+        <meta name="author" 
+              content="1773031 - Haryo Bagas Assyafah, 1873004 - Alvira Puteri"/>
+        <h:outputStylesheet library="css" 
+                            name="login.css"/>
+    </h:head>
+    <h:body style="background-color: #FAFAFA" 
+            onload="#{fawnUserManagedBean.init()}">
+        <p:growl id="messages" 
+                 showDetail="true" 
+                 life="2100"/>
+        <div class="dip">
+            <div style="float: left;margin-top: 50px;">
+                <h:graphicImage value="/resources/appdata/LogoTf.png" 
+                                style="width:500px; height: 350px;" /> 
+            </div>
+            <div class="dipchild">
+                <h:form id="lgin">
+                    <h:panelGroup rendered="#{!fawnUserManagedBean.isRegister}"><br/><br/>
+                        <h1 style="margin-left: 15px;margin-right: 20px;">Welcome to Fawnder!</h1><br/>
+                        <p:inputText value="#{fawnUserManagedBean.loginUsername}" 
+                                     placeholder="Username"/><br/><br/>
+                        <p:password value="#{fawnUserManagedBean.loginPassword}" 
+                                    placeholder="Password"/><br/><br/>
+                        <p:commandButton value="Login" 
+                                         styleClass="btn" 
+                                         action="#{fawnUserManagedBean.login()}" 
+                                         update="@form messages"/><br/><br/>
+                        <hr class="garis"/>
+                        OR
+                        <hr class="garis"/><br/><br/>
+                        <h:outputText value="Don't have an account?" 
+                                      style="margin-left: 40px"/><br/><br/>
+                        <p:commandButton action="#{fawnUserManagedBean.initRegistration()}" 
+                                         value="Register" 
+                                         styleClass="btn" 
+                                         style="background-color: #42B72A;" 
+                                         update="@form :regist messages"/><br/><br/>
+                    </h:panelGroup>
+                </h:form>
+                <h:form id="regist">
+                    <h:panelGroup rendered="#{fawnUserManagedBean.isRegister}">
+                        <h1 style="margin-left: 15px;margin-right: 20px;">Register to Fawnder!</h1>
+                        <p:inputText value="#{fawnUserManagedBean.editUser.loginUsername}" 
+                                     required="true" 
+                                     placeholder="Username" 
+                                     style="width: 40%;"/>
+                        <p:inputText value="#{fawnUserManagedBean.editUser.name}" 
+                                     required="true" 
+                                     placeholder="Owner Name" 
+                                     style="width: 40%; margin-left: 10px;"/><br/><br/>
+                        <p:inputText value="#{fawnUserManagedBean.editUser.contact}" 
+                                     required="true" 
+                                     placeholder="Contact Number" 
+                                     style="width: 85%;"/><br/><br/>
+                        <p:password value="#{fawnUserManagedBean.editUser.loginPassword}" 
+                                    required="true" 
+                                    placeholder="Password" 
+                                    style="width: 85%;;"/><br/><br/>
+                        <p:inputText value="#{fawnUserManagedBean.editUser.location}" 
+                                     required="true" 
+                                     placeholder="Location" 
+                                     style="width: 85%;"/><br/><br/>
+                        <p:commandButton value="Register" 
+                                         styleClass="btn" 
+                                         action="#{fawnUserManagedBean.registerU()}" 
+                                         update="@form :lgin messages" 
+                                         style="background-color: #42B72A;"/><br/><br/>
+                        <hr class="garis"/>
+                        OR
+                        <hr class="garis"/><br/><br/>
+                        <h:outputText value="Already have an account ?" 
+                                      style="margin-left: 35px"/><br/><br/>
+                        <p:commandButton value="Login" 
+                                         styleClass="btn" 
+                                         action="#{fawnUserManagedBean.toLogin()}" 
+                                         update="@form :lgin messages" 
+                                         immediate="true"/><br/><br/>
+                    </h:panelGroup>
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</html>

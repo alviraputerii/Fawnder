@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Fawnder!</title>
+        <link rel="icon" 
+              href="resources/appdata/logoH.ico"/>
+        <meta charset="UTF-8"/>
+        <meta name="description" 
+              content="Meet a Partner for your Dog"/>
+        <meta name="author" 
+              content="1773031 - Haryo Bagas Assyafah, 1873004 - Alvira Puteri"/>
+        <h:outputStylesheet library="css" 
+                            name="forumDetail.css"/>
+        <h:outputStylesheet name="primeicons/primeicons.css" 
+                            library="primefaces" />
+    </h:head>
+    <h:body>
+        <p:growl id="messages" 
+                 showDetail="true" 
+                 life="2100"/>
+        <h:form>  
+            <h:outputStylesheet name="primeicons/primeicons.css" 
+                                library="primefaces" />
+            <p:megaMenu styleClass="mmenu">
+                <p:menuitem value="Back" 
+                            icon="pi pi-chevron-circle-left" 
+                            action="forum" 
+                            style="margin-top: 5px;margin-left: 15px;"/>
+            </p:megaMenu>
+        </h:form><br/><br/>
+        <div class="dip">
+            <div class="dipchild" 
+                 style="border: 2px solid gray;">
+                <h:form style="margin-top: 10px"> 
+                    <h:panelGroup>
+                        <p:outputLabel value="@#{fawnUserManagedBean.loggedUser.loginUsername}" 
+                                       style="font-weight: bold;"/><br/><br/>
+                        <p:commandLink action="#{forumManagedBean.initForumUser(fawnUserManagedBean.loggedUser)}" 
+                                       value="#{fawnUserManagedBean.loggedUser.name}" /><br/>
+                        <p:outputLabel value="#{fawnUserManagedBean.loggedUser.contact}" 
+                                       class="label"/>
+                        <p:outputLabel value="#{fawnUserManagedBean.loggedUser.location}" 
+                                       class="label" 
+                                       style="margin-left: 10px;"/><br/><br/>
+                    </h:panelGroup>
+                </h:form>
+            </div>
+            <div class="dipchild2">
+                <h:form id="colPostDetail" 
+                        style="margin: 20px; margin-left: 30px;"> 
+                    <p:commandLink value="@#{forumManagedBean.selectedPost.IDuser.name}" 
+                                   action="#{forumManagedBean.initForumUser(forumManagedBean.selectedPost.IDuser)}"/>
+                    <p:commandLink action="#{forumManagedBean.deletePost()}" 
+                                   rendered="#{forumManagedBean.selectedPost.IDuser.id == fawnUserManagedBean.loggedUser.id}" 
+                                   value="Delete" 
+                                   style="float: right">
+                        <p:confirm header="Confirmation" 
+                                   message="Are you sure?" 
+                                   icon="pi pi-exclamation-triangle"/>
+                    </p:commandLink>
+                    <p:commandLink action="#{forumManagedBean.initEditPost(forumManagedBean.selectedPost)}" 
+                                   rendered="#{forumManagedBean.selectedPost.IDuser.id == fawnUserManagedBean.loggedUser.id}" 
+                                   value="Edit" 
+                                   style="float: right; margin-right: 15px"/><br/><br/>
+                    <p:outputLabel value="#{forumManagedBean.selectedPost.subject}" 
+                                   style="font-weight: bold;"/>
+                    <i class="pi pi-comments" 
+                       style="float: right"/>
+                    <b style="float: right; color: darkgray">#{forumManagedBean.commentMB.getAllPostingCommentLengthByPosting(forumManagedBean.selectedPost)}</b><br/><br/>
+                    <p:outputLabel value="#{forumManagedBean.selectedPost.content}" 
+                                   style="margin-left: 10px; color: darkgray;"/><br/><br/>
+                    <p:outputLabel value="#{forumManagedBean.selectedPost.IDtopic.name}" 
+                                   class="label"/><br/>
+                    <p:confirmDialog global="true" 
+                                     showEffect="fade" 
+                                     hideEffect="fade">
+                        <p:commandButton value="Yes" 
+                                         type="button" 
+                                         styleClass="ui-confirmdialog-yes" 
+                                         icon="pi pi-check" />
+                        <p:commandButton value="No" 
+                                         type="button" 
+                                         styleClass="ui-confirmdialog-no" 
+                                         icon="pi pi-times" />
+                    </p:confirmDialog> 
+                </h:form>
+            </div>
+            <div class="dipchild"/>
+        </div>
+        <div class="dip2"><br/>
+            <h:form id="colAddComment">
+                <p:outputLabel value="Reading is good, comment is better" 
+                               style="margin-left: 20px;color: darkgray;"/><br/><br/>
+                <p:inputText value="#{forumManagedBean.editPostComment.content}" 
+                             placeholder="Add a comment" 
+                             style="height: 20px; width: 80px; margin-left: 20px; margin-right: 20px;" 
+                             required="true" 
+                             requiredMessage="Please fill a comment section"/><br/><br/>
+                <p:commandButton action="#{forumManagedBean.addComment()}" 
+                                 value="post" 
+                                 style="float: right; margin-right: 20px;" 
+                                 update="@form :colPostDetail :colAllComment messages">
+                    <p:confirm header="Confirmation" 
+                               message="Are you sure?" 
+                               icon="pi pi-exclamation-triangle"/>
+                </p:commandButton><br/><br/><br/>
+                <p:confirmDialog global="true" 
+                                 showEffect="fade" 
+                                 hideEffect="fade">
+                    <p:commandButton value="Yes" 
+                                     type="button" 
+                                     styleClass="ui-confirmdialog-yes" 
+                                     icon="pi pi-check" />
+                    <p:commandButton value="No" 
+                                     type="button" 
+                                     styleClass="ui-confirmdialog-no" 
+                                     icon="pi pi-times" />
+                </p:confirmDialog> 
+            </h:form>
+        </div>
+        <div class="dip2" 
+             style="margin-top: 10px !important;"><br/>
+            <h:form id="colAllComment">
+                <p:outputLabel value="ALL COMMENT" 
+                               style="margin-left: 20px;" /><br/><br/>
+                <p:dataGrid var="co" 
+                            value="#{forumManagedBean.commentMB.getAllPostingCommentByPosting(forumManagedBean.selectedPost)}"
+                            columns="1">
+                    <br/>
+                    <p:commandLink value="#{co.IDuser.name}" 
+                                   action="#{forumManagedBean.initForumUser(co.IDuser)}" 
+                                   style="margin-left: 25px;font-weight: bold;margin-right: 15px;"/>
+                    <p:outputLabel value="#{globalManagedBean.getDateForumConverted(co.date)}"/>
+                    <p:commandLink action="#{forumManagedBean.deleteComment(co)}" 
+                                   rendered="#{co.IDuser.id == fawnUserManagedBean.loggedUser.id}" 
+                                   value="Delete" 
+                                   style="float: right; margin-right: 20px;" 
+                                   update="@form :colAddComment :colPostDetail messages">
+                        <p:confirm header="Confirmation" 
+                                   message="Are you sure?" 
+                                   icon="pi pi-exclamation-triangle"/>
+                    </p:commandLink>
+                    <br/><br/>
+                    <p:outputLabel value="#{co.content}" 
+                                   style="margin-left: 30px;"/><br/><br/>
+                </p:dataGrid>
+                <p:confirmDialog global="true" 
+                                 showEffect="fade" 
+                                 hideEffect="fade">
+                    <p:commandButton value="Yes" 
+                                     type="button" 
+                                     styleClass="ui-confirmdialog-yes" 
+                                     icon="pi pi-check" />
+                    <p:commandButton value="No" 
+                                     type="button" 
+                                     styleClass="ui-confirmdialog-no" 
+                                     icon="pi pi-times" />
+                </p:confirmDialog> 
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

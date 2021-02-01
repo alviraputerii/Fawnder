@@ -1,0 +1,113 @@
+/*
+Theme Name: Fawnder!
+Description: Meet a Partner for your Dog
+Author: 1773031 - Haryo Bagas Assyafah, 1873004 - Alvira Puteri
+*/
+.ui-menu .ui-menu-list .ui-widget-header{
+    background-color: white;
+    border: none;
+}
+.btn{
+    background-color: #1773EC;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-left: 4px;
+    text-shadow: none;
+    height: 35px;
+}
+.ui-button{
+    color: white;
+    border: none;
+    text-shadow: none;
+    padding: 3px;
+    background: #1773EC !important;
+}
+.ui-widget-header{
+    background:  white;
+    color: black;
+    font-weight: normal;
+    text-shadow : none;
+}
+.ui-inputfield{
+    width: 40% !important;
+    color: black !important;
+}
+.ui-datagrid-column, .ui-g-12, .ui-md-3{
+    background-color:  #FAFAFA;
+}
+.ui-datagrid{
+    width: 90%;
+    text-align: center;
+    margin-left: 45px;
+}
+.label{
+    margin-top: 5px;
+    background-color: #e6e6e6;
+    font-size: .8075rem;
+    border-radius: 10px;
+    font-weight: 500;
+    line-height: 2.5;
+    padding: 0 10px;
+}
+.ui-menubar  {
+    background: white !important;
+    font-weight: bolder !important;
+    color: darkgrey;
+}
+.ui-widget-content a{
+    color: darkgrey !important;
+}
+.ui-menu, .ui-menu .ui-menu-child{
+    background: white;
+}
+.dip{
+    width: 100%; 
+    height: 100%;
+    margin: auto;
+}
+.dipchild{
+    border-radius: 6px;
+    width: 35%;
+    height: 99%; 
+    float: left;
+}
+.dipchild2{
+    width: 90%; 
+    border: 2px solid gray; 
+    margin: 0 auto;
+    border-radius: 6px;
+}
+.dipchild3{
+    border: 2px solid gray; 
+    float: left; 
+    width: 63%; 
+    height :100%;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 6px;
+}
+.mmenu{
+    margin-top: -9px;
+    margin-left: -8px;
+    margin-right: -9px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 45px;
+    border-radius: 0;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+    color: white;
+    text-shadow: none;
+    font-weight: normal;
+}
+.ui-confirmdialog-yes{
+    margin-left: 15px !important;
+}
+.ui-confirmdialog-no{
+    background-color: red !important;    
+}

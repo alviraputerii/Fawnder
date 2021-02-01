@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Fawnder!</title>
+        <link rel="icon" 
+              href="resources/appdata/logoH.ico"/>
+        <meta charset="UTF-8"/>
+        <meta name="description" 
+              content="Meet a Partner for your Dog"/>
+        <meta name="author" 
+              content="1773031 - Haryo Bagas Assyafah, 1873004 - Alvira Puteri"/>
+        <h:outputStylesheet library="css" 
+                            name="forum.css"/>
+        <h:outputStylesheet name="primeicons/primeicons.css" 
+                            library="primefaces" />
+    </h:head>
+    <h:body style="background-color: #d1f4fa" 
+            onload="#{forumManagedBean.initForum()}">
+        <p:growl id="messages" 
+                 showDetail="true" 
+                 life="2100"/>
+        <h:form>  
+            <p:megaMenu styleClass="mmenu">
+                <p:menuitem value="FAWNDER" 
+                            icon="pi pi-heart" 
+                            action="home" 
+                            style="margin-top: 5px;margin-left: 400px;"/>
+                <p:menuitem id="notif" 
+                            value="Notification" 
+                            icon="pi pi-inbox" 
+                            style="margin-top: 5px;margin-left: 100px;" />
+                <p:menuitem value="Logout" 
+                            icon="pi pi-sign-out" 
+                            action="#{fawnUserManagedBean.logout()}" 
+                            style="margin-top: 5px;margin-left: 100px;"/>
+            </p:megaMenu>
+            <p:overlayPanel for="notif" 
+                            hideEffect="fade">
+                <p:scrollPanel style="width:600px;height:300px;border: none">
+                    <h2>Notification Received</h2>
+                    <p:dataScroller value="#{forumManagedBean.modelForumNotification()}" 
+                                    var="pComment"
+                                    chunkSize="10">
+                        <p:outputPanel style="margin-bottom: 10px;width: 100%">
+                            <p:outputLabel value="#{pComment.IDuser.name} comments on your post"/><br/>
+                            <p:commandButton  action="#{forumManagedBean.initForumPostDetails(pComment.IDposting)}" 
+                                              value="See Comment" 
+                                              styleClass="btn2" />
+                        </p:outputPanel>
+                    </p:dataScroller>
+                </p:scrollPanel>
+            </p:overlayPanel>
+        </h:form><br/><br/>
+        <div class="dip">
+            <div class="dipchild">
+                <h:form> 
+                    <h:panelGroup>
+                        <br/>
+                        <p:outputLabel value="@#{fawnUserManagedBean.loggedUser.loginUsername}" 
+                                       style="font-weight: bold;"/><br/><br/>
+                        <p:commandLink action="#{forumManagedBean.initForumUser(fawnUserManagedBean.loggedUser)}" 
+                                       value="#{fawnUserManagedBean.loggedUser.name}" /><br/>
+                        <p:outputLabel value="#{fawnUserManagedBean.loggedUser.contact}" 
+                                       class="label"/>
+                        <p:outputLabel value="#{fawnUserManagedBean.loggedUser.location}" 
+                                       class="label" 
+                                       style="margin-left: 10px;"/><br/><br/>
+                    </h:panelGroup>
+                    <p:commandButton action="#{forumManagedBean.initCreateNewPost()}" 
+                                     value="Create New Post" 
+                                     update="@form" 
+                                     styleClass="btn"/>
+                </h:form>
+            </div>
+            <div class="dipchild2">
+                <h:form id="allPost" style="margin: 20px;">
+                    <p:outputLabel value="Selected Post" 
+                                   style="margin-right: 10px;"/>
+                    <p:commandLink value="#{forumManagedBean.selectedTopicView == null ? 'All' : forumManagedBean.selectedTopicView.name}" 
+                                   class="label" 
+                                   style="text-decoration: none"/><br/><br/>
+                    <p:dataGrid var="t" 
+                                value="#{forumManagedBean.modelForumPostMain}"
+                                columns="1">
+                        <h:panelGrid columns="2">
+                            <p:commandLink value="#{t.IDuser.name}" 
+                                           action="#{forumManagedBean.initForumUser(t.IDuser)}" 
+                                           style="margin-left: 15px;"/>
+                            <p:outputLabel value="#{globalManagedBean.getDateForumConverted(t.date)}" 
+                                           rendered="#{!t.hasEdit}" 
+                                           style="margin-left: 15px;"/>
+                            <p:outputLabel value="#{globalManagedBean.getDateForumConverted(t.date)} [ Edited ]" 
+                                           rendered="#{t.hasEdit}" 
+                                           style="margin-left: 15px;"/>
+                        </h:panelGrid><br/>
+                        <p:commandLink value="#{t.subject}" 
+                                       action="#{forumManagedBean.initForumPostDetails(t)}" 
+                                       style="font-weight: bold; margin-left: 15px;"/><br/><br/>
+                        <p:outputLabel value="#{globalManagedBean.getFilteredForumContent(t.content)}" 
+                                       style="margin-left: 25px; color: darkgray;"/><br/><br/>
+                        <p:commandLink value="#{t.IDtopic.name}" 
+                                       action="#{forumManagedBean.setSelectedTopicView(t.IDtopic)}" 
+                                       class="label" 
+                                       style="margin-left: 15px;" 
+                                       update="@form :fTopic"/>
+                        <p:commandButton icon="pi pi-comments" 
+                                         styleClass="btncomment" 
+                                         action="#{forumManagedBean.initForumPostDetails(t)}" 
+                                         value="#{forumManagedBean.commentMB.getAllPostingCommentLengthByPosting(t)}"/>
+                        <hr class="garis"/><br/><br/>
+                    </p:dataGrid>
+                </h:form>
+            </div>
+            <div class="dipchild" 
+                 style="height: 255px;">
+                <h:form id="fTopic" 
+                        style="margin-top: 20px">
+                    <p:outputLabel value="FORUM TOPIC" 
+                                   style="font-weight: bold;"/><br/><br/>
+                    <p:commandLink value="View All" 
+                                   action="#{forumManagedBean.setSelectedTopicView(null)}" 
+                                   update="@form :allPost"/><br/><br/>
+                    <p:dataGrid var="to" 
+                                value="#{forumManagedBean.topicMB.allData}"
+                                columns="1">
+                        <p:commandLink value="#{to.name}" 
+                                       action="#{forumManagedBean.setSelectedTopicView(to)}" 
+                                       update="@form :allPost"/>
+                    </p:dataGrid>
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</html>
+

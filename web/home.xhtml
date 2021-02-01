@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -6,352 +6,482 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Fawnder!</title>
-        <style type="text/css">
-            .value {
-                font-weight: bold;
-            }
-
-            .ui-carousel {
-                margin-bottom: 20px;
-            }
-            .ui-menubar  {
-                background: #968c83 !important;
-                font-weight: bolder !important;
-            }
-            .ui-widget{
-                font-size: 1em !important;
-            }
-            .ui-widget-content a{
-                color: #ffffff !important;
-            }
-            .ui-menu, .ui-menu .ui-menu-child{
-                background: #968c83;
-            }
-            .btn{
-                background-color: #d6d2c4;
-                border: none;
-                color: black;
-                padding: 10px 20px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                border-radius: 4px;
-            }
-            .ui-datagrid-column, .ui-g-12, .ui-md-3{
-                background-color: #ebd4d4;
-            }
-            .label{
-                margin-top: 5px;
-                background-color: #e6e6e6;
-                font-size: .8075rem;
-                border-radius: 10px;
-                font-weight: 500;
-                line-height: 2.5;
-                padding: 0 10px;
-            }
-            .ui-button{
-                color: black;
-                border: none;
-                margin : auto;
-                text-shadow: none;
-                padding: 3px;
-                background: #d6d2c4 !important;
-            }
-            .btnEdit{
-                margin-left: 40px; 
-            }
-            .btnEdit2{
-                margin-left: 20px; 
-            }
-            .info{
-                margin-left: 50px;
-                float: right;
-                font-weight:bold;
-                margin-right: 10px;
-            }
-            .info2{
-                /*                float: right;*/
-                font-weight:bold;
-                margin-right: 10px;
-            }
-            .ui-widget-header{
-                background: #bbbfca;
-            }
-            .ui-toggleswitch {
-                position: relative;
-                display: inline-block;
-                width: 60px;
-                height: 28px;
-            }
-            .ui-toggleswitch-slider {
-                position: absolute;
-                cursor: pointer;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: #ccc;
-                -webkit-transition: .4s;
-                transition: .4s;
-            }
-            .ui-toggleswitch-slider:before {
-                position: absolute;
-                content: "";
-                height: 23px;
-                width: 26px;
-                left: 4px;
-                bottom: 3px;
-                background-color: white;
-                -webkit-transition: .4s;
-                transition: .4s;
-            }
-            .ui-toggleswitch-slider:after {
-                background-color: aqua;
-            }
-            .ui-inputfield{
-                width: 95% !important;
-            }
-            .header-logo{
-                width: 200px; 
-                height: 200px;  
-                border-radius: 50%;
-                margin: 20px;
-            }
-            .vl {
-                border-left: 3px solid gray;
-                height: 200px;
-            }
-            .kolom{
-                padding: 20px;
-            }
-        </style>
+        <link rel="icon" 
+              href="resources/appdata/logoH.ico"/>
+        <meta charset="UTF-8"/>
+        <meta name="description" 
+              content="Meet a Partner for your Dog"/>
+        <meta name="author" 
+              content="1773031 - Haryo Bagas Assyafah, 1873004 - Alvira Puteri"/>
+        <h:outputStylesheet library="css" 
+                            name="home.css"/>
+        <h:outputStylesheet name="primeicons/primeicons.css" 
+                            library="primefaces" />
     </h:head>
-
-    <h:body style="background-color: #fff5ea">
+    <h:body onload="#{fawnPetManagedBean.initUser()}; #{fawnPetManagedBean.resetFilter()}">
+        <p:growl id="messages" 
+                 showDetail="true" 
+                 life="2100"/>
         <h:form id="imagePan">  
-            <p:growl id="messages"/>
-            <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
-            <p:megaMenu style="margin-top:20px;">
-                <p:menuitem value="Notification" icon="pi pi-inbox" id="imageBtn"/>
-                <p:menuitem value="Logout" icon="pi pi-sign-out" action="#{user.daoUser.logout()}"/>
+            <p:megaMenu styleClass="mmenu">
+                <p:menuitem value="Notification" 
+                            icon="pi pi-envelope" 
+                            id="imageBtn" 
+                            style="margin-top: 5px;margin-left: 300px;"/>
+                <p:menuitem value="Forum" 
+                            icon="pi pi-users" 
+                            action="forum" 
+                            style="margin-top: 5px;margin-left: 100px;"/>
+                <p:menuitem value="Setting" 
+                            icon="pi pi-cog" 
+                            action="setting" 
+                            style="margin-top: 5px;margin-left: 100px;"/>
+                <p:menuitem value="Logout" 
+                            icon="pi pi-sign-out" 
+                            action="#{fawnUserManagedBean.logout()}" 
+                            style="margin-top: 5px;margin-left: 100px;"/>
             </p:megaMenu>
-            <p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade">
-                <!--                data container-->
-                <p:scrollPanel style="width:600px;height:300px;border: none">
+            <p:overlayPanel id="imagePanel" 
+                            for="imageBtn" 
+                            hideEffect="fade">
+                <p:scrollPanel style="width: 600px; height: 300px; border: none;">
                     <h2>Notification Sent</h2>
-                    <p:dataScroller value="#{user.daoNotif.getSentNotification(user.daoUser.loggedUser)}" var="n" chunkSize="10">
-                        <p:outputPanel>
-                            <h:outputText rendered="#{user.button_AcceptDeclineRender(n)}" value="Contact request has sent to owner of #{user.daoPet.getPetByID(n.petID_Receiver).petName}" style="font-weight: bold"/><br/>
-                            <h:outputText rendered="#{user.textAcceptedRender(n)}" value="Your request has been accepted by owner of #{user.daoPet.getPetByID(n.petID_Receiver).petName}" style="font-weight: bold"/>
-                            <h:outputText rendered="#{user.textDeclinedRender(n)}" value="Your request has been rejected by owner of #{user.daoPet.getPetByID(n.petID_Receiver).petName}" style="font-weight: bold"/>
-                            <p:commandButton value="Look Contact" rendered="#{user.textAcceptedRender(n)}" styleClass="btn btnEdit2" onclick="PF('dlg8').show();"/>
+                    <p:dataScroller value="#{fawnPetNotificationManagedBean.petNotificationSB.sentNotification}" 
+                                    var="n" 
+                                    chunkSize="10">
+                        <p:outputPanel style="margin-bottom: 10px;">
+                            <h:outputText rendered="#{fawnPetNotificationManagedBean.booleanWaitingApproval(n)}" 
+                                          value="Your pet '#{n.IDpetSender.name}' has sent request to owner of '#{n.IDpetReceiver.name}'" 
+                                          style="font-weight: bold"/><br/>
+                            <h:outputText rendered="#{fawnPetNotificationManagedBean.booleanAccepted(n)}" 
+                                          value="Your pet '#{n.IDpetSender.name}' has been accepted by owner of '#{n.IDpetReceiver.name}'" 
+                                          style="font-weight: bold"/>
+                            <h:outputText rendered="#{fawnPetNotificationManagedBean.booleanDeclined(n)}" 
+                                          value="Your pet '#{n.IDpetSender.name}' has been rejected by owner of #{n.IDpetReceiver.name}" 
+                                          style="font-weight: bold"/>
+                            <p:commandButton icon="pi pi-info-circle" 
+                                             rendered="#{fawnPetNotificationManagedBean.booleanAccepted(n)}" 
+                                             action="#{fawnPetNotificationManagedBean.setSelectedNotificationSender(n)}" 
+                                             styleClass="btnEdit2" 
+                                             update=":senderViewContact"/>
+                            <p:commandButton value="Resend" 
+                                             rendered="#{fawnPetNotificationManagedBean.booleanDeclined(n)}" 
+                                             action="#{fawnPetNotificationManagedBean.resend(n)}" 
+                                             styleClass="btnEdit2" 
+                                             style="background-color: #42B72A !important" 
+                                             update="@form :dataTableDog messages :petSelection">
+                                <p:confirm header="Confirmation" 
+                                           message="Are you sure?" 
+                                           icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton><br/>
                         </p:outputPanel>
-                        
                     </p:dataScroller>
                 </p:scrollPanel>
-                <p:scrollPanel id="dataNotif" style="width:600px;height:300px;border: none">
+                <p:scrollPanel id="dataNotif" 
+                               style="width:600px;height:300px;border: none">
                     <h2>Notification Received</h2>
-                    <p:dataScroller value="#{user.daoNotif.getReceiveNotification(user.daoUser.loggedUser.ID)}" var="rn" chunkSize="10">
-                        <h:form>
-                            <p:outputPanel>
-                                <p:outputLabel rendered="#{user.button_AcceptDeclineRender(rn)}" value="Owner of #{user.daoPet.getPetByID(rn.petID_From).petName} interested in your pet" style="font-weight: bold"/>
-                                <p:outputLabel rendered="#{user.textAcceptedRender(rn)}" value="Accepted, your contact has sent to owner of #{user.daoPet.getPetByID(rn.petID_From).petName}" style="font-weight: bold"/>
-                                <p:outputLabel rendered="#{user.textDeclinedRender(rn)}" value="You have declined to share your contact to owner of #{user.daoPet.getPetByID(rn.petID_From).petName}" style="font-weight: bold"/>
-                                <p:commandButton value="See Pet" onclick="PF('dlg6').show();" styleClass="btn btnEdit2"/>
-                                
-                            </p:outputPanel>
-                        </h:form>
-                        <h:form>
-                            <p:commandButton value="Accept" action="#{user.daoNotif.acceptRequest(rn, user.daoUser.loggedUser)}" rendered="#{user.button_AcceptDeclineRender(rn)}" process="@form"
-                                             update=":imagePan" styleClass="btn btnEdit2"/>
-                            <p:commandButton value="Decline" action="#{user.daoNotif.declineRequest(rn)}" rendered="#{user.button_AcceptDeclineRender(rn)}" process="@form" 
-                                             update="@form :imagePan" styleClass="btn btnEdit2"/>
-                        </h:form>
+                    <p:dataScroller value="#{fawnPetNotificationManagedBean.petNotificationSB.receiveNotification}" 
+                                    var="n" 
+                                    chunkSize="10" 
+                                    transient="true">
+                        <p:outputPanel style="margin-bottom: 10px;">
+                            <p:outputLabel rendered="#{fawnPetNotificationManagedBean.booleanWaitingApproval(n)}" 
+                                           value="Owner of '#{n.IDpetSender.name}' interested to '#{n.IDpetReceiver.name}'" 
+                                           style="font-weight: bold"/>
+                            <p:outputLabel rendered="#{fawnPetNotificationManagedBean.booleanAccepted(n)}" 
+                                           value="Accepted, '#{n.IDpetReceiver.name}' contact details has sent to '#{n.IDpetSender.name}'" 
+                                           style="font-weight: bold"/>
+                            <p:outputLabel rendered="#{fawnPetNotificationManagedBean.booleanDeclined(n)}" 
+                                           value="You have declined to share '#{n.IDpetReceiver.name}' contact details to owner of '#{n.IDpetSender.name}'" 
+                                           style="font-weight: bold"/><br/>
+                            <p:commandButton icon="pi pi-info" 
+                                             rendered="#{fawnPetNotificationManagedBean.booleanWaitingApproval(n)}" 
+                                             action="#{fawnPetNotificationManagedBean.setSelectedNotificationReceiver(n)}" 
+                                             styleClass="btnEdit2" style="background-color: #1773EC;" 
+                                             update=":petInfoApproval"/>
+                            <p:commandButton action="#{fawnPetNotificationManagedBean.decline(n)}" 
+                                             rendered="#{fawnPetNotificationManagedBean.booleanWaitingApproval(n)}" 
+                                             icon="pi pi-times" 
+                                             process="@form" 
+                                             update="@form :dataTableDog messages :petSelection" 
+                                             styleClass="btnEdit2" 
+                                             style="background-color: #FC2204 !important">
+                                <p:confirm header="Confirmation" 
+                                           message="Are you sure?" 
+                                           icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton>
+                            <p:commandButton action="#{fawnPetNotificationManagedBean.approve(n)}" 
+                                             rendered="#{fawnPetNotificationManagedBean.booleanWaitingApproval(n)}" 
+                                             icon="pi pi-check" 
+                                             process="@form"
+                                             update="@form :dataTableDog messages :petSelection" 
+                                             styleClass="btnEdit2" 
+                                             style="background-color: #42B72A !important">
+                                <p:confirm header="Confirmation" 
+                                           message="Are you sure?" 
+                                           icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton>
+                        </p:outputPanel>
                     </p:dataScroller>
                 </p:scrollPanel>
             </p:overlayPanel>
+            <p:confirmDialog global="true" 
+                             showEffect="fade" 
+                             hideEffect="fade">
+                <p:commandButton value="Yes" 
+                                 type="button" 
+                                 styleClass="ui-confirmdialog-yes" 
+                                 icon="pi pi-check"/>
+                <p:commandButton value="No" 
+                                 type="button" 
+                                 styleClass="ui-confirmdialog-no" 
+                                 icon="pi pi-times"/>
+            </p:confirmDialog> 
         </h:form>
-        
-        <p:dialog header="Owner Profile" widgetVar="dlg8" modal="true" width="400" style="background-color: #ebd4d4">
-            <br/>
-            <b>This is the contact of the owner of your chosen dog :</b><br/><br/><hr/><br/>
-            <h:form>
-                <h:panelGrid columns="2" columnClasses="kolom">
+        <h:form id="petInfoApproval">
+            <p:dialog header="Pet's Profile" 
+                      widgetVar="petInfoApproval" 
+                      modal="true" 
+                      width="400" 
+                      style="text-align: center;position: absolute"><br/>
+                <h:panelGroup>
+                    <p:graphicImage styleClass="header-logo" 
+                                    value="#{globalManagedBean.getUserImgData(fawnPetNotificationManagedBean.currNotifications.IDpetSender.photo)}"
+                                    alt="err" 
+                                    style="width: 250px; height: 250px; border-radius: 4px;margin-top: 0"/><br/>
+                    <p:outputLabel value="#{fawnPetNotificationManagedBean.currNotifications.IDpetSender.name}," 
+                                   style="font-weight: bold;"/>          
+                    <p:outputLabel value="#{fawnPetNotificationManagedBean.currNotifications.IDpetSender.age} Months" 
+                                   style="margin-left: 10px"/><br/>             
+                    <p:outputLabel class="label" 
+                                   value="#{fawnPetNotificationManagedBean.currNotifications.IDpetSender.gender}"/>     
+                    <p:outputLabel class="label" 
+                                   value="#{fawnPetNotificationManagedBean.currNotifications.IDpetSender.breeds}" 
+                                   style="margin-left: 10px;"/><br/><br/>
+                    <p:outputLabel value="Pet's Detail"/><br/><br/>
+                    <p:panelGrid columns="2" style="border: 1px solid white !important; margin: auto">
+                        <p:outputLabel value="Medical History"/>
+                        <p:outputLabel value="#{fawnPetNotificationManagedBean.currNotifications.IDpetSender.medicalHistory}" 
+                                       style="font-weight: bold;"/>   
+                        <p:outputLabel value="Family Tree"/>
+                        <p:outputLabel value="#{fawnPetNotificationManagedBean.currNotifications.IDpetSender.familyTree}" 
+                                       style="font-weight: bold;"/>   
+                        <p:outputLabel value="Sertification"/>
+                        <p:outputLabel value="#{fawnPetNotificationManagedBean.currNotifications.IDpetSender.certification}" 
+                                       style="font-weight: bold;"/>
+                    </p:panelGrid><br/><br/>
+                </h:panelGroup>
+            </p:dialog>
+        </h:form>
+        <h:form id="petInfo">
+            <p:dialog widgetVar="petInfo" 
+                      modal="true" 
+                      width="350" 
+                      style="text-align: center; position: absolute"><br/>
+                <h:panelGroup>
+                    <p:outputLabel value="Pet's Profile"/><br/>
+                    <p:graphicImage styleClass="header-logo" 
+                                    value="#{globalManagedBean.getUserImgData(fawnPetManagedBean.selectedPet.photo)}"
+                                    alt="err" 
+                                    style="width: 250px; height: 250px; border-radius: 4px;"/><br/>
+                    <p:outputLabel value="#{fawnPetManagedBean.selectedPet.name}," 
+                                   style="font-weight: bold;"/>          
+                    <p:outputLabel value="#{fawnPetManagedBean.selectedPet.age} Months" 
+                                   style="margin-left: 10px"/><br/>             
+                    <p:outputLabel class="label" 
+                                   value="#{fawnPetManagedBean.selectedPet.gender}"/>     
+                    <p:outputLabel class="label" 
+                                   value="#{fawnPetManagedBean.selectedPet.breeds}" 
+                                   style="margin-left: 10px;"/><br/><br/>
+                    <p:outputLabel value="Pet's Detail"/><br/><br/>
+                    <p:panelGrid columns="2" style="border: 1px solid white !important; margin: auto">
+                        <p:outputLabel value="Medical History"/>
+                        <p:outputLabel value="#{fawnPetManagedBean.selectedPet.medicalHistory}" 
+                                       style="font-weight: bold;"/>   
+                        <p:outputLabel value="Family Tree"/>
+                        <p:outputLabel value="#{fawnPetManagedBean.selectedPet.familyTree}" 
+                                       style="font-weight: bold;"/>   
+                        <p:outputLabel value="Sertification"/>
+                        <p:outputLabel value="#{fawnPetManagedBean.selectedPet.certification}" 
+                                       style="font-weight: bold;"/>
+                    </p:panelGrid><br/>
+                </h:panelGroup>
+            </p:dialog>
+        </h:form>
+        <h:form id="senderViewContact">
+            <p:dialog header="Owner Profile" 
+                      widgetVar="senderViewContact" 
+                      modal="true" 
+                      width="400"><br/>
+                <b style="margin-left: 60px;">This is the contact of the owner</b><br/>
+                <b style="margin-left: 100px;"> of '#{fawnPetNotificationManagedBean.currNotifications.IDpetReceiver.name}' :</b><br/><br/>
+                <hr style="width: 90%;"/>
+                <h:panelGrid columns="2" 
+                             columnClasses="kolom" 
+                             style="margin-left: 40px;">
                     <h:panelGroup>
-                         <p:outputLabel value="Owner Name" style="font-weight:bold"/><br/><br/>
-                         <p:outputLabel value="Owner Contact" style="font-weight:bold"/><br/><br/>
-                         <p:outputLabel value="Location" style="font-weight:bold"/><br/><br/>
+                        <p:outputLabel value="Owner Name" 
+                                       style="font-weight:bold"/><br/><br/>
+                        <p:outputLabel value="Owner Contact" 
+                                       style="font-weight:bold"/><br/><br/>
+                        <p:outputLabel value="Location" 
+                                       style="font-weight:bold"/><br/><br/>
                     </h:panelGroup>
                     <h:panelGroup>
-                        <p:outputLabel value="#{user.daoNotif.owner.nameOwner}" /><br/><br/>
-                        <p:outputLabel value="#{user.daoNotif.owner.contactOwner}" /><br/><br/>
-                        <p:outputLabel value="#{user.daoNotif.owner.location}" /><br/><br/>
+                        <p:outputLabel value="#{fawnPetNotificationManagedBean.currNotifications.IDpetReceiver.IDuser.name}" /><br/><br/>
+                        <p:outputLabel value="#{fawnPetNotificationManagedBean.currNotifications.IDpetReceiver.IDuser.contact}" /><br/><br/>
+                        <p:outputLabel value="#{fawnPetNotificationManagedBean.currNotifications.IDpetReceiver.IDuser.location}" /><br/><br/>
                     </h:panelGroup>
                 </h:panelGrid>
-            </h:form>
-        </p:dialog>
-
+            </p:dialog>
+        </h:form>
+        <h:form id="selectViewContact">
+            <p:dialog header="Owner Profile" 
+                      widgetVar="selectViewContact" 
+                      modal="true" 
+                      width="400"><br/>
+                <b style="margin-left: 60px;">This is the contact of the owner</b><br/>
+                <b style="margin-left: 100px;"> of '#{fawnPetManagedBean.selectedPet.name}' :</b><br/><br/>
+                <hr style="width: 90%;"/>
+                <h:panelGrid columns="2" 
+                             columnClasses="kolom" 
+                             style="margin-left: 40px;">
+                    <h:panelGroup>
+                        <p:outputLabel value="Owner Name" 
+                                       style="font-weight:bold"/><br/><br/>
+                        <p:outputLabel value="Owner Contact" 
+                                       style="font-weight:bold"/><br/><br/>
+                        <p:outputLabel value="Location" 
+                                       style="font-weight:bold"/><br/><br/>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <p:outputLabel value="#{fawnPetManagedBean.selectedPet.IDuser.name}"/><br/><br/>
+                        <p:outputLabel value="#{fawnPetManagedBean.selectedPet.IDuser.contact}"/><br/><br/>
+                        <p:outputLabel value="#{fawnPetManagedBean.selectedPet.IDuser.location}"/><br/><br/>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
         <h:form id="info">
             <p:growl id="msg" />
-            <h:panelGrid columns="3" style="margin: 30px auto;">
-                <h:panelGrid columns="2" style="margin: 0 auto;">
-                    <h:graphicImage value="resources/images/logo2.JPG" styleClass="header-logo"/> 
+            <h:panelGrid columns="3" 
+                         styleClass="profile">
+                <h:panelGrid columns="2" 
+                             style="margin: 0 auto;">
+                    <h:graphicImage value="/resources/appdata/logo2.jpg" 
+                                    styleClass="header-logo"/> 
                     <h1 style="margin-right: 20px">Meet a Partner</h1>
                     <h1 style="text-align: center">for your Dog</h1>
                 </h:panelGrid>
                 <p class="vl"></p>
                 <h:panelGroup style="margin-left: 50px; ">
-                    <br/><h:outputText value="#{user.daoUser.loggedUser.username}" style="font-size: 25px; font-weight:bold;margin-left: 50px;"/><br/>
-                    <h:panelGrid columns="5" style="margin-left: 45px;margin-right: 20px">
+                    <br/><h:outputText value="@#{fawnUserManagedBean.userSB.loggedUser.loginUsername}" 
+                                       style="font-size: 25px; font-weight:bold;margin-left: 50px;"/><br/>
+                    <h:panelGrid columns="5" 
+                                 style="margin-left: 45px;margin-right: 20px">
                         <h:panelGroup style="padding-right: 20px">
                             <h:panelGrid columns="2">
-                                <h:outputText value="Name" styleClass="info2"/>
-                                <h:outputText value="#{user.daoUser.loggedUser.nameOwner}"/>
+                                <h:outputText value="Name" 
+                                              styleClass="info2"/>
+                                <h:outputText value="#{fawnUserManagedBean.userSB.loggedUser.name}"/>
                             </h:panelGrid>
                         </h:panelGroup> 
-                        <h:outputText value="|" style="color: #fff5ea"/>
+                        <h:outputText value="|" 
+                                      style="color: #d1f4fa"/>
                         <h:panelGroup style="padding-right: 20px">
                             <h:panelGrid columns="2">
-                                <h:outputText value="Contact" styleClass="info2"/>
-                                <h:outputText value="#{user.daoUser.loggedUser.contactOwner}"/>
+                                <h:outputText value="Contact" 
+                                              styleClass="info2"/>
+                                <h:outputText value="#{fawnUserManagedBean.userSB.loggedUser.contact}"/>
                             </h:panelGrid>
                         </h:panelGroup> 
-                        <h:outputText value="|" style="color: #fff5ea"/>
+                        <h:outputText value="|" 
+                                      style="color: #d1f4fa"/>
                         <h:panelGroup style="padding-right: 20px">
                             <h:panelGrid columns="2" >
-                                <h:outputText value="Location" styleClass="info2"/>
-                                <h:outputText value="#{user.daoUser.loggedUser.location}"/>
+                                <h:outputText value="Location" 
+                                              styleClass="info2"/>
+                                <h:outputText value="#{fawnUserManagedBean.userSB.loggedUser.location}"/>
                             </h:panelGrid>
                         </h:panelGroup>
                     </h:panelGrid>           
-                    <h:panelGroup style="margin-left: 50px">
-                        <p:commandButton value="Edit Profile" styleClass="btn btnEdit" type="button" onclick="PF('dlg5').show();"/>
-                        <p:commandButton value="Manage Dog" styleClass="btn btnEdit2" type="submit" action="managePet" /><br/><br/>
-                    </h:panelGroup>
                 </h:panelGroup>
             </h:panelGrid>
         </h:form>
-
-        <p:dialog header="Pet Profile" widgetVar="dlg6" modal="true" width="600" style="background-color: #ebd4d4">
-            <br/>
-            <h:form>
-                <h:panelGrid columns="3">
-                    <h:panelGroup>
-                        <p:graphicImage value="resources/images/#{user.petRequest.photo}.jpg" styleClass="header-logo"/> <br/><br/>
-                    </h:panelGroup>
-                    <p class="vl"></p>
-                    <h:panelGroup style="margin-left: 50px;">
-                        <h:panelGrid columns="2" columnClasses="kolom">
-                            <h:panelGroup>
-                                 <p:outputLabel value="Pet Name" style="font-weight:bold;padding: 10px"/><br/><br/>
-                                 <p:outputLabel value="Pet Age" style="font-weight:bold;padding: 10px"/><br/><br/>
-                                 <p:outputLabel value="Pet Gender" style="font-weight:bold;padding: 10px"/><br/><br/>
-                                 <p:outputLabel value="Pet Breed" style="font-weight:bold;padding: 10px"/><br/><br/>
-                            </h:panelGroup>
-                            <h:panelGroup>
-                                <p:outputLabel value="#{user.petRequest.petName}" /><br/><br/>
-                                <p:outputLabel value="#{user.petRequest.petAge}" /><br/><br/>
-                                <p:outputLabel value="#{user.petRequest.petGender}" /><br/><br/>
-                                <p:outputLabel value="#{user.petRequest.petBreeds}" /><br/><br/>
-                            </h:panelGroup>
-                        </h:panelGrid>
-                    </h:panelGroup>
-                </h:panelGrid>
-            </h:form>
-        </p:dialog>
-
-        <p:dialog header="Edit Profile" widgetVar="dlg5" modal="true" width="430" style="background-color: #ebd4d4">
-            <br/>
-            <h:form>
-                <h:panelGrid columns="2" columnClasses="kolom">
-                    <p:outputLabel value="Username" style="font-weight:bold;"/>
-                    <p:inputText value="#{user.daoUser.loggedUser.username}" id="uname" style="margin-left: 10px;"/>
-                    <p:outputLabel value="Password" style="font-weight:bold;"/>
-                    <p:inputText value="#{user.daoUser.loggedUser.password}" id="pass" style="margin-left: 10px;"/>
-                    <p:outputLabel value="Owner Name" style="font-weight:bold;"/>
-                    <p:inputText value="#{user.daoUser.loggedUser.nameOwner}" id="oname" style="margin-left: 10px;"/>
-                    <p:outputLabel value="Owner Contact" style="font-weight:bold;"/>
-                    <p:inputText value="#{user.daoUser.loggedUser.contactOwner}" id="ocontact" style="margin-left: 10px;"/>
-                    <p:outputLabel value="Location" style="font-weight:bold;"/>
-                    <p:inputText value="#{user.daoUser.loggedUser.location}" id="loc" style="margin-left: 10px;"/>
-                </h:panelGrid><br/>
-                <p:commandButton value="Update Profile" styleClass="btn" style="width: 100%" action="#{user.daoUser.updateUser(user.daoUser.loggedUser)}"
-                                 onclick="PF('dlg5').hide();" update=":info"/>
-            </h:form>
-            <br/>
-        </p:dialog>
-
-        <hr style="width: 80%;"/><br/>
-
-        <h:form>
+        <h:form>  
+            <hr style="width: 50%;"/><br/>
             <div style="text-align:center">
                 <h1>Find your Favorite Dog!</h1>
-                <p:commandButton value="Filter Data" styleClass="btn" type="button" onclick="PF('dlg2').show();"/><br/><br/>
-            </div>
-            <p:dialog header="Filter Data" widgetVar="dlg2" modal="true" height="220" width="400" style="background-color: #ebd4d4">
-                
-                <br/><p:inputText placeholder="Domisili" value="#{user.daoPet.petFilter.location}" style="width: 97%"/><br/><br/>
-                <p:selectOneRadio id="gender" value="#{user.daoPet.petFilter.gender}" style="width: 97%">
-                    <f:selectItem itemLabel="Male" itemValue="male" />
-                    <f:selectItem itemLabel="Female" itemValue="female" />
-                    <f:selectItem itemLabel="All" itemValue="all" />
+                <p:outputLabel value="Hard to find the pet you want? Try filter data!"/>
+                <p:commandButton value="Filter Data" 
+                                 styleClass="btnFilter" 
+                                 onclick="PF('dlg2').show();"/><br/><br/>
+            </div> 
+        </h:form>  
+        <h:form>
+            <p:dialog header="Filter Data" 
+                      widgetVar="dlg2" 
+                      modal="true" 
+                      height="340" 
+                      width="380" 
+                      style="text-align: center">
+                <p:outputLabel value="Filter by Domisili" /><br/>
+                <br/><p:inputText placeholder="Domisili" 
+                                  value="#{fawnPetManagedBean.domisil}" 
+                                  style="width: 97%"/><br/><br/>
+                <p:outputLabel value="Filter by Gender" 
+                               style="text-align: center"/><br/><br/>
+                <p:selectOneRadio id="gender" 
+                                  value="#{fawnPetManagedBean.gender}" 
+                                  style="width: 97%">
+                    <f:selectItem itemLabel="Male" 
+                                  itemValue="male" />
+                    <f:selectItem itemLabel="Female" 
+                                  itemValue="female"/>
+                    <f:selectItem itemLabel="All" 
+                                  itemValue="-"/>
                 </p:selectOneRadio><br/>
-                <p:inputText placeholder="Breed" value="#{user.daoPet.petFilter.petBreeds}" style="width: 97%"/><br/><br/>
-                <h:panelGrid columns="2" style="margin: 0 auto">
-                    <p:commandButton type="submit" value="OK" styleClass="btn" style="width: 100%" update="@form :dataTableDog" />
-                    <p:commandButton type="reset" value="Reset" styleClass="btn" style="width: 100%" update="@form :dataTableDog" immediate="true"/>
+                <p:outputLabel value="Filter by Breed" 
+                               style="text-align: center"/><br/><br/>
+                <p:inputText placeholder="Breed" 
+                             value="#{fawnPetManagedBean.breed}" 
+                             style="width: 97%"/><br/><br/>
+                <h:panelGrid columns="2" 
+                             style="margin: 0 auto">
+                    <p:commandButton value="OK" 
+                                     styleClass="btn" 
+                                     style="width: 100%" 
+                                     update="@form :dataTableDog"/>
+                    <p:commandButton action="#{fawnPetManagedBean.resetFilter()}" 
+                                     value="Reset" 
+                                     styleClass="btn" 
+                                     style="width: 100%" 
+                                     update="@form :dataTableDog"/>
                 </h:panelGrid>
+                <p:ajax event="close" 
+                        update="@form :dataTableDog"/>
             </p:dialog>   
         </h:form>
-
-        <p:dialog header="Notification" widgetVar="dlg1" modal="true" minHeight="40" width="200px">
-            <h:outputText value="Request Sent!" />
-        </p:dialog><br/><br/>
-
-        <h:form>
-            <p:dialog widgetVar="dlg7" modal="true" width="700" style="background-color: #ebd4d4">
-                <h1 style="text-align: center;">Choose a Dog</h1>
-                <p:dataGrid var="pet" value="#{user.daoPet.getDataPetByUser(user.daoUser.loggedUser)}" columns="2" layout="grid"
-                            rows="5" paginator="true" id="users"
+        <h:form id="petSelection">
+            <p:dialog widgetVar="dlg7" 
+                      modal="true" 
+                      width="700" style="position: absolute !important">
+                <h2 style="text-align: center;">Selected Pet :</h2>
+                <h:panelGrid columns="2" 
+                             style="margin: auto">
+                    <p:graphicImage value="#{globalManagedBean.getUserImgData(fawnPetManagedBean.selectedPet.photo)}" 
+                                    alt="Pet Photo" 
+                                    style="width: 250px; height: 250px; border-radius: 4px;"/>
+                    <h:panelGroup >
+                        <b style="margin-left:50px;">#{fawnPetManagedBean.selectedPet.name}</b>
+                        <b style="font-size: 14px;">#{fawnPetManagedBean.selectedPet.age} months</b><br/>
+                        <b class="label" style="margin-left: 50px;">#{fawnPetManagedBean.selectedPet.gender}</b>
+                        <b class="label">#{fawnPetManagedBean.selectedPet.breeds}</b><br/><br/>
+                    </h:panelGroup>
+                </h:panelGrid>
+                <h2 style="text-align: center;">Pick Yours !</h2>
+                <p:dataGrid var="pet" 
+                            value="#{fawnPetManagedBean.petSB.petDataUser}" 
+                            columns="2" 
+                            layout="grid"
+                            rows="5" 
+                            paginator="true" 
+                            id="users"
                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                             rowsPerPageTemplate="5,10,15">
                     <p:panel style="text-align:center">
-                        <h:panelGrid columns="1" style="width:100%">
-                            <p:graphicImage value="resources/images/#{pet.photo}.jpg" style="width: 250px; height: 250px;"/> 
-                            <b style="font-size: 14px">#{pet.petName}</b>
-                            <b>#{pet.petAge} months</b><br/>
-                            <i class="pi pi-map-marker">#{user.daoUser.getUserFromPet(pet).location}</i><br/>
-                            <b class="label">#{pet.petGender}</b><br/>
-                            <b>#{pet.petBreeds}</b><br/><br/>
-                            <p:commandButton value="Choose" action="#{user.sendRequest(pet)}" rendered="#{user.button_ReceiveRender(pet)}" onclick="PF('dlg7').hide();PF('dlg1').show();" process="@this" partialSubmit="true" update="@form :imagePan dataTableDog"/>
-                            <p:commandButton value="Sent" rendered="#{user.button_ReceiveWaitingForApprovalRender(pet)}" disabled="true"/>
+                        <h:panelGrid columns="1" 
+                                     style="width:100%">
+                            <b>#{pet.name},</b>
+                            <b>#{pet.age} months</b><br/>
+                            <p:graphicImage value="#{globalManagedBean.getUserImgData(pet.photo)}" 
+                                            alt="Pet Photo" 
+                                            style="width: 250px; height: 250px; border-radius: 4px;"/>
+                            <b>#{pet.breeds}</b>
+                            <b class="label" style="margin-left: 5px;">#{pet.gender}</b><br/>
+                            <p:commandButton value="Choose" 
+                                             action="#{fawnPetManagedBean.choosePet(pet)}" 
+                                             rendered="#{fawnPetManagedBean.booleanIdleSent(pet)}" 
+                                             onclick="PF('dlg7').hide();" 
+                                             update="@all">
+                                <p:confirm header="Confirmation" 
+                                           message="Are you sure?" 
+                                           icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton>
+                            <p:commandButton value="Sent" 
+                                             rendered="#{fawnPetManagedBean.booleanWaitingApprovalSent(pet)}" 
+                                             disabled="true"/>
+                            <p:commandButton value="Re-Send" 
+                                             action="#{fawnPetManagedBean.resend(pet)}" 
+                                             rendered="#{fawnPetManagedBean.booleanDeclinedSent(pet)}" 
+                                             onclick="PF('dlg7').hide();" 
+                                             update="@form :dataTableDog messages :imagePan :petSelection"
+                                             process="@this"
+                                             partialSubmit="true">
+                                <p:confirm header="Confirmation" 
+                                           message="Are you sure?" 
+                                           icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton>
+                            <p:outputLabel value="Already Linked" 
+                                           rendered="#{fawnPetManagedBean.booleanAcceptedSent(pet)}"/>
+                            <p:commandButton value="View Contact" 
+                                             rendered="#{fawnPetManagedBean.booleanAcceptedSent(pet)}" 
+                                             action="#{fawnPetManagedBean.setSelectedViewContact(pet)}" 
+                                             update=":selectViewContact"/>
+                            <p:confirmDialog global="true" 
+                                             showEffect="fade" 
+                                             hideEffect="fade">
+                                <p:commandButton value="Yes" 
+                                                 type="button" 
+                                                 styleClass="ui-confirmdialog-yes" 
+                                                 icon="pi pi-check"/>
+                                <p:commandButton value="No" 
+                                                 type="button" 
+                                                 styleClass="ui-confirmdialog-no" 
+                                                 icon="pi pi-times"/>
+                            </p:confirmDialog> 
                         </h:panelGrid>
                     </p:panel>
-                </p:dataGrid>
+                </p:dataGrid><br/>
             </p:dialog>       
         </h:form>
-
         <h:form id="dataTableDog">
-            <p:dataGrid var="p" value="#{user.daoPet.getAllDataUserFiltered(user.daoUser.loggedUser, user.daoUser.allDataUser)}" columns="4" layout="grid"
-                        rows="12" paginator="true" id="users"
+            <p:dataGrid var="p" 
+                        value="#{fawnPetManagedBean.modelPet}" 
+                        columns="2" 
+                        layout="grid"
+                        rows="12" 
+                        paginator="true" 
+                        id="users"
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                        rowsPerPageTemplate="12,24,36">
-                <p:panel style="text-align:center">
-                    <h:panelGrid columns="1" style="width:100%">
-                        <p:graphicImage value="resources/images/#{p.photo}.jpg" style="width: 250px; height: 250px;"/> 
-                        <b style="font-size: 14px">#{p.petName}</b>
-                        <b>#{p.petAge} months</b><br/>
-                        <i class="pi pi-map-marker">#{user.daoUser.getUserFromPet(p).location}</i><br/>
-                        <b class="label">#{p.petGender}</b><br/>
-                        <b>#{p.petBreeds}</b><br/><br/>
-                        <i style="font-size: 10px; text-align: right;">Interested in this dog? Send a request to get the owner's contact!</i>
-                        <p:commandButton value="Send Request" action="#{user.setPetReceiver(p)}" rendered="#{user.button_ReceiveRender(p)}" onclick="PF('dlg7').show();"/>
-                        <p:commandButton value="Waiting For Approval" rendered="#{user.button_ReceiveWaitingForApprovalRender(p)}" disabled="true"/>
+                        rowsPerPageTemplate="12,24,36" 
+                        style="width: 90%; margin: auto; ">
+                <p:panel style="text-align:center; border: 1px solid gray;">
+                    <h:panelGrid columns="2" 
+                                 style="width:100%">
+                        <p:graphicImage value="#{globalManagedBean.getUserImgData(p.photo)}" 
+                                        alt="Pet Photo" 
+                                        style="width: 250px; height: 250px; border-radius: 4px;"/>
+                        <h:panelGroup style="width: 40%">
+                            <b style="font-size: 14px">#{p.name}</b>
+                            <b>#{p.age} months</b><br/>
+                            <i class="pi pi-map-marker">#{p.IDuser.location}</i><br/>
+                            <b class="label">#{p.gender}</b>
+                            <b class="label">#{p.breeds}</b><br/><br/>
+                            <p:commandButton value="View Detail"
+                                             action="#{fawnPetManagedBean.viewPetInfo(p)}"
+                                             update=":petInfo"/><br/><br/>
+                            <hr class="garis"/>OR
+                            <hr class="garis"/><br/><br/>
+                            <p:commandButton value="Send Request" 
+                                             action="#{fawnPetManagedBean.sendRequest(p)}" 
+                                             update="@form :petSelection" 
+                                             style="background-color: #42B72A !important;"/>
+                        </h:panelGroup>
                     </h:panelGrid>
                 </p:panel>
             </p:dataGrid>
-        </h:form>
+        </h:form><br/><br/>
     </h:body>
 </html>
 

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Fawnder!</title>
+        <link rel="icon" 
+              href="resources/appdata/logoH.ico"/>
+        <meta charset="UTF-8"/>
+        <meta name="description" 
+              content="Meet a Partner for your Dog"/>
+        <meta name="author" 
+              content="1773031 - Haryo Bagas Assyafah, 1873004 - Alvira Puteri"/>
+        <h:outputStylesheet library="css" 
+                            name="setting.css"/>
+        <h:outputStylesheet name="primeicons/primeicons.css" 
+                            library="primefaces" />
+    </h:head>
+    <h:body style="background-color: #d1f4fa" 
+            onload="#{fawnUserManagedBean.initEdit()}">
+        <p:growl id="messages" 
+                 showDetail="true" 
+                 life="2100" />
+        <h:form> 
+            <p:megaMenu styleClass="mmenu">
+                <p:menuitem value="Back" 
+                            icon="pi pi-chevron-circle-left" 
+                            action="home" 
+                            style="margin-top: 5px;margin-left: 15px;"/>
+            </p:megaMenu><br/><br/>
+        </h:form>
+        <h:form> 
+            <div class="dip">
+                <div class="dipchild">
+                    <div class="dipchild2">
+                        <h:panelGroup>
+                            <h2 style="margin-left: 120px;">Profile Setting</h2>
+                            <p:outputLabel value="USERNAME" 
+                                           style="font-size: 12px !important;margin-left: 20px;"/>
+                            <p:outputLabel value="PASSWORD" 
+                                           style="font-size: 12px !important;margin-left: 110px;"/><br/>
+                            <p:inputText value="#{fawnUserManagedBean.editUser.loginUsername}" 
+                                         id="uname" 
+                                         style="margin-left: 20px;" immediate="true"/>
+                            <p:inputText value="#{fawnUserManagedBean.editUser.loginPassword}" 
+                                         id="pass" 
+                                         style="margin-left: 10px;"/><br/><br/>
+                            <p:outputLabel value="NAMA" 
+                                           style="font-size: 12px !important;margin-left: 20px;"/>
+                            <p:outputLabel value="CONTACT" 
+                                           style="font-size: 12px !important;margin-left: 143px;"/><br/>
+                            <p:inputText value="#{fawnUserManagedBean.editUser.name}" 
+                                         id="oname" 
+                                         style="margin-left: 20px;"/>
+                            <p:inputText value="#{fawnUserManagedBean.editUser.contact}" 
+                                         id="ocontact" 
+                                         style="margin-left: 10px;"/><br/><br/>
+                            <p:outputLabel value="LOCATION" 
+                                           style="font-size: 12px !important;margin-left: 20px;"/><br/>
+                            <p:inputText value="#{fawnUserManagedBean.editUser.location}" 
+                                         id="loc" 
+                                         style="margin-left: 20px;width: 85% !important"/><br/><br/>
+                            <p:commandButton action="#{fawnUserManagedBean.edit()}" 
+                                             value="Update Profile" 
+                                             styleClass="btn" 
+                                             style="background-color: #42B72A !important;margin-left: 120px;" update="@form messages">
+                                <p:confirm header="Confirmation" 
+                                           message="Are you sure?" 
+                                           icon="pi pi-exclamation-triangle"/>
+                            </p:commandButton><br/><br/>
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </div>
+            <p:confirmDialog global="true" 
+                             showEffect="fade" 
+                             hideEffect="fade">
+                <p:commandButton value="Yes" 
+                                 type="button" 
+                                 styleClass="ui-confirmdialog-yes" 
+                                 icon="pi pi-check" />
+                <p:commandButton value="No" 
+                                 type="button" 
+                                 styleClass="ui-confirmdialog-no" 
+                                 icon="pi pi-times" />
+            </p:confirmDialog>  
+        </h:form>
+        <h:form id="dataTableManagePet">
+            <div class="dipchild3">
+                <div>
+                    <h1 style="margin-left: 15px;margin-right: 20px;">Manage Pet</h1>
+                    <p:commandButton value="Add Pet" 
+                                     styleClass="btn" 
+                                     style="width: 15%; background-color: #42B72A" 
+                                     action="#{fawnPetManagedBean.initAddPet()}"/><br/><br/>
+                    <p:dataGrid var="u" 
+                                value="#{fawnPetManagedBean.petSB.petDataUser}" 
+                                emptyMessage=""
+                                columns="3" 
+                                layout="grid"
+                                rows="12" 
+                                paginator="true" 
+                                id="users"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="12,24,36">
+                        <p:panel style="text-align:center">
+                            <p:graphicImage value="#{globalManagedBean.getUserImgData(u.photo)}" 
+                                            style="width: 180px; height: 200px;"/> 
+                            <b style="font-size: 14px">#{u.name}</b>
+                            <b>#{u.age} months</b><br/>
+                            <i class="pi pi-map-marker">#{user.daoUser.getUserFromPet(u).location}</i><br/>
+                            <b class="label">#{u.gender}</b>
+                            <b class="label">#{u.visibility}</b><br/>
+                            <b>#{u.breeds}</b><br/><br/>
+                            <p:commandButton action="#{fawnPetManagedBean.initEditPet(u)}" 
+                                             value="Edit" 
+                                             class="btn" 
+                                             style="background-color: #42B72A !important;"/>
+                            <p:commandButton action="#{fawnPetManagedBean.deletePet(u)}" 
+                                             value="Delete" 
+                                             class="btn" 
+                                             style="background-color: red !important;" 
+                                             update="@form">
+                                <p:confirm header="Confirmation" 
+                                           message="Are you sure?" 
+                                           icon="pi pi-exclamation-triangle" />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" 
+                                             showEffect="fade" 
+                                             hideEffect="fade">
+                                <p:commandButton value="Yes" 
+                                                 type="button" 
+                                                 styleClass="ui-confirmdialog-yes" 
+                                                 icon="pi pi-check" />
+                                <p:commandButton value="No" 
+                                                 type="button" 
+                                                 styleClass="ui-confirmdialog-no" 
+                                                 icon="pi pi-times" />
+                            </p:confirmDialog>  
+                        </p:panel>
+                    </p:dataGrid><br/><br/>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

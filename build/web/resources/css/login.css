@@ -1,0 +1,60 @@
+/*
+Theme Name: Fawnder!
+Description: Meet a Partner for your Dog
+Author: 1773031 - Haryo Bagas Assyafah, 1873004 - Alvira Puteri
+*/
+.btn{
+    background-color: #1773EC;
+    border: none;
+    color: white;
+    padding: 20px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-left: 4px;
+    width: 85%;
+}
+.ui-button{
+    color: white;
+    border: none;
+    text-shadow: none;
+    padding: 4px !important;
+    background: #1773EC;
+}
+.garis{
+    width: 39%;
+    display: inline-block;
+    margin-left: 10px;
+    margin-right : 10px;
+    margin-top: 7px;
+    color: gray;
+}
+.dip{
+    width: 1050px; 
+    height: 400px;
+    margin: 50px auto;
+}
+.dipchild{
+    border-radius: 6px;
+    width: 405px;
+    height: 500px; 
+    float: left;
+    margin-left: 70px;
+    background-color: #ffffff;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.ui-inputfield{
+    margin-left: 4px;
+    width: 85%;
+    border-radius: 5px !important;
+    height: 30px;
+}
+.ui-dialog .ui-dialog-titlebar{
+    background-color: white;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+    text-shadow: none;
+}

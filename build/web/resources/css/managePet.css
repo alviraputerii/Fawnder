@@ -1,0 +1,128 @@
+/*
+Theme Name: Fawnder!
+Description: Meet a Partner for your Dog
+Author: 1773031 - Haryo Bagas Assyafah, 1873004 - Alvira Puteri
+*/
+.ui-menubar  {
+    background: white !important;
+    font-weight: bolder !important;
+    color: darkgrey;
+}
+.ui-widget-content a{
+    color: darkgrey !important;
+}
+.ui-menu, .ui-menu .ui-menu-child{
+    background: #005792;
+}
+.btn{
+    background-color: #42B72A;
+    border: none;
+    color: white;
+    padding: 20px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    float: right;
+    width: 40%;
+}
+.ui-button{
+    color: white;
+    border: none;
+    margin : auto;
+    text-shadow: none;
+    padding: 3px;
+    background: #42B72A;
+}
+.ui-widget-header{
+    background: white;
+    color: darkgray;
+    font-weight: normal;
+    text-shadow : none;
+    width: 120px;
+    border: none;
+}
+.ui-fileupload-content{
+    width: 120px;
+    border: none;
+}
+.ui-toggleswitch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 28px;
+}
+.ui-toggleswitch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.ui-toggleswitch-slider:before {
+    position: absolute;
+    content: "";
+    height: 23px;
+    width: 26px;
+    left: 4px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.ui-toggleswitch-slider:after {
+    background-color: aqua;
+}
+.ui-inputfield{
+    width: 90% !important;
+    border-radius: 5px !important;
+    height: 24px;
+}
+.header-logo{
+    width: 200px; 
+    height: 200px;  
+    border-radius: 50%;
+    margin: 20px;
+}
+.dip{
+    width: 65%; 
+    margin: auto;
+    background-color: white !important;
+    height: 670px;
+}
+.dipchild{
+    border: 1px solid gray; 
+    border-radius: 4px;
+    background-color: white;
+    width: 22%;
+    height: 640px;
+    float :left;
+    padding: 15px;
+}
+.dipchild2{
+    border: 1px solid gray; 
+    border-radius: 4px;
+    background-color: white;
+    width: 73.80%;
+    height: 100%;
+    float :left;
+}
+.mmenu{
+    margin-top: -9px;
+    margin-left: -8px;
+    margin-right: -9px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 45px;
+    border-radius: 0;
+}
+.ui-outputlabel{
+    font-size: 15px !important; 
+    font-weight:bold;
+    float: right;
+    margin-right: 10px;
+}

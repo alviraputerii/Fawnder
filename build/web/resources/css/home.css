@@ -1,0 +1,172 @@
+/*
+Theme Name: Fawnder!
+Description: Meet a Partner for your Dog
+Author: 1773031 - Haryo Bagas Assyafah, 1873004 - Alvira Puteri
+*/
+.ui-menubar  {
+    background: white !important;
+    font-weight: bolder !important;
+    color: darkgrey;
+    text-align: center;
+}
+.ui-widget-content a{
+    color: darkgray !important;
+}
+.ui-menu, .ui-menu .ui-menu-child{
+    background: #005792;
+}
+.btn{
+    background-color: #1773EC;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-left: 4px;
+    width: 85%;
+    text-shadow: none;
+}
+.ui-datagrid-column, .ui-g-12, .ui-md-3{
+    background-color: #FAFAFA;
+}
+.label{
+    margin-top: 5px;
+    background-color: #e6e6e6;
+    font-size: .8075rem;
+    border-radius: 10px;
+    font-weight: 500;
+    line-height: 2.5;
+    padding: 0 10px;
+}
+.ui-button{
+    color: white;
+    border: none;
+    margin : auto;
+    text-shadow: none;
+    padding: 5px;
+    background: #1773EC  !important;
+}
+.btnFilter{
+    background-color: #1773EC !important;
+    border: none;
+    color: white;
+    padding: 20px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-left: 14px;
+    /*width: 100px;*/ 
+    height: 35px;
+}
+.btnEdit2{
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 4px;
+    margin-left: 4px;
+    /*    float: right;*/
+    margin-bottom: 5px;
+    margin-top: 0px;
+    height: 30px;
+}
+.ui-widget-header{
+    background: #FAFAFA;
+    font-weight: normal;
+    text-shadow : none;
+}
+.ui-toggleswitch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 28px;
+}
+.ui-toggleswitch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.ui-toggleswitch-slider:before {
+    position: absolute;
+    content: "";
+    height: 23px;
+    width: 26px;
+    left: 4px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.ui-toggleswitch-slider:after {
+    background-color: aqua;
+}
+.ui-inputfield{
+    width: 95% !important;
+    color: black !important;
+}
+.header-logo{
+    width: 200px; 
+    height: 200px;  
+    border-radius: 50%;
+    margin: 20px;
+}
+.vl {
+    border-left: 3px solid gray;
+    height: 200px;
+}
+.kolom{
+    padding: 20px;
+
+}
+.garis{
+    width: 20%;
+    display: inline-block;
+    margin-left: 10px;
+    margin-right : 10px;
+    margin-top: 7px;
+}
+.mmenu{
+    margin-top: -9px;
+    margin-left: -8px;
+    margin-right: -9px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 45px;
+    border-radius: 0;
+}
+.profile{
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 30px auto;
+    border: 1px solid gray;
+}
+.ui-paginator .ui-paginator-current, .ui-paginator .ui-paginator-rpp-options{
+    color: black;
+}
+.ui-dialog .ui-dialog-titlebar{
+    background-color: white;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+    color: white;
+    text-shadow: none;
+    font-weight: normal;
+}
+.ui-confirmdialog-yes{
+    margin-left: 15px !important;
+    background-color: #42B72A !important;
+}
+.ui-confirmdialog-no{
+    background-color: red !important;    
+}

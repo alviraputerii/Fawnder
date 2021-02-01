@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Fawnder!</title>
+        <link rel="icon" 
+              href="resources/appdata/logoH.ico"/>
+        <meta charset="UTF-8"/>
+        <meta name="description" 
+              content="Meet a Partner for your Dog"/>
+        <meta name="author" 
+              content="1773031 - Haryo Bagas Assyafah, 1873004 - Alvira Puteri"/>
+        <h:outputStylesheet library="css" 
+                            name="forum.css"/>
+        <h:outputStylesheet name="primeicons/primeicons.css" 
+                            library="primefaces" />
+    </h:head>
+    <h:body style="background-color: #d1f4fa">
+        <p:growl id="messages" 
+                 showDetail="true" 
+                 life="2100"/>
+        <h:form>  
+            <p:megaMenu styleClass="mmenu">
+                <p:menuitem value="FAWNDER" 
+                            icon="pi pi-heart" 
+                            action="home" 
+                            style="margin-top: 5px;margin-left: 400px;"/>
+                <p:menuitem value="Forum Home" 
+                            icon="pi pi-home" 
+                            action="forum" 
+                            style="margin-top: 5px;margin-left: 100px;"/>
+                <p:menuitem value="Logout" 
+                            icon="pi pi-sign-out" 
+                            action="#{fawnUserManagedBean.logout()}" 
+                            style="margin-top: 5px;margin-left: 100px;"/>
+            </p:megaMenu>
+        </h:form><br/><br/>
+        <div class="dip">
+            <div class="dipchild">
+                <h:form style="margin-top: 20px"> 
+                    <h:panelGroup>
+                        <p:outputLabel value="@#{forumManagedBean.selectedUser.loginUsername}" 
+                                       style="font-weight: bold;"/><br/><br/>
+                        <p:outputLabel value="#{forumManagedBean.selectedUser.name}" /><br/>
+                        <p:outputLabel value="#{forumManagedBean.selectedUser.contact}" 
+                                       class="label"/>
+                        <p:outputLabel value="#{forumManagedBean.selectedUser.location}" 
+                                       class="label" 
+                                       style="margin-left: 10px;"/><br/><br/>
+                        <p:outputLabel value="Total Post : #{forumManagedBean.postingMB.getAllUserPostingLength(forumManagedBean.selectedUser)}"/><br/>
+                        <p:outputLabel value="Total Comment : #{forumManagedBean.commentMB.getAllUserPostingCommentLength(forumManagedBean.selectedUser)}"/>
+                    </h:panelGroup>
+                </h:form>
+            </div>
+            <div class="dipchild2">
+                <h:form id="allPost" style="margin: 20px; margin-left: 30px;">
+                    <p:dataGrid var="t" 
+                                value="#{forumManagedBean.postingMB.getAllDataByUser(forumManagedBean.selectedUser)}"
+                                columns="1">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="@#{t.IDuser.name}" 
+                                           style="text-decoration: none; color: black;"/>
+                            <p:outputLabel value="#{globalManagedBean.getDateForumConverted(t.date)}" 
+                                           rendered="#{!t.hasEdit}" 
+                                           style="margin-left: 15px;"/>
+                            <p:outputLabel value="#{globalManagedBean.getDateForumConverted(t.date)} [ Edited ]" 
+                                           rendered="#{t.hasEdit}" 
+                                           style="margin-left: 15px;"/>
+                        </h:panelGrid><br/>
+                        <p:commandLink value="#{t.subject}" 
+                                       action="#{forumManagedBean.initForumPostDetails(t)}" 
+                                       style="font-weight: bold; margin-left: 15px;"/><br/><br/>
+                        <p:outputLabel value="#{globalManagedBean.getFilteredForumContent(t.content)}" 
+                                       style="margin-left: 25px; color: darkgray;"/><br/><br/>
+                        <p:outputLabel value="#{t.IDtopic.name}" 
+                                       class="label" 
+                                       style="margin-left: 15px;"/>
+                        <p:commandButton icon="pi pi-comments" 
+                                         styleClass="btncomment" 
+                                         action="#{forumManagedBean.initForumPostDetails(t)}" 
+                                         value="#{forumManagedBean.commentMB.getAllPostingCommentLengthByPosting(t)}"/>
+                        <hr class="garis"/><br/><br/>
+                    </p:dataGrid>
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</html>
+

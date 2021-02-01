@@ -1,0 +1,136 @@
+/*
+Theme Name: Fawnder!
+Description: Meet a Partner for your Dog
+Author: 1773031 - Haryo Bagas Assyafah, 1873004 - Alvira Puteri
+*/
+.ui-menubar  {
+    background: white !important;
+    color: darkgrey;
+    font-weight: bolder !important;
+}
+.ui-widget{
+    font-size: 1em !important;
+}
+.ui-widget-content a{
+    color: darkgrey !important;
+}
+.ui-menu, .ui-menu .ui-menu-child{
+    background: #005792;
+}
+.btn{
+    background-color: #1773EC !important;
+    border: none;
+    color: white;
+    padding: 20px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-left: 4px;
+    width: 85%;
+}
+.ui-button{
+    color: white;
+    border: none;
+    text-shadow: none;
+    padding: 4px !important;
+    background: #1773EC;
+}
+.ui-widget-header{
+    background: white;
+    font-weight: normal;
+    text-shadow : none;
+}
+.ui-inputfield{
+    width: 95% !important;
+
+    border-radius: 10px;;
+}
+.header-logo{
+    width: 200px; 
+    height: 200px;  
+    border-radius: 50%;
+    margin: 20px;
+}
+.garis{
+    width: 95%;
+    display: inline-block;
+    margin-left: 10px;
+    margin-right : 15px;
+    margin-top: 30px;
+}
+.dip{
+    width: 55%; 
+    margin: auto;
+    background-color: white !important;
+    height: 320px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding-left: 30px;
+    padding-top: 20px;
+}
+.dip2{
+    border: 2px solid gray; 
+    border-radius: 4px;
+    margin-left: 286px; 
+    background-color: white; 
+    width: 52%;
+    height: 100%; 
+    margin-top: 170px;
+}
+.dipchild{
+    border: 2px solid gray; 
+    border-radius: 4px;
+    width: 20%; 
+    float: left;
+    text-align: center;
+    background-color: white;
+    margin-left: 15px;
+}
+.dipchild2{
+    border: 2px solid gray;
+    border-radius: 4px;
+    width: 52%; 
+    float: left; 
+    margin-left: 15px;
+    background-color: white;
+}
+.kolom{
+    padding: 20px;
+}
+.label{
+    margin-top: 5px;
+    background-color: #e6e6e6;
+    font-size: .8075rem !important;
+    border-radius: 10px;
+    font-weight: 500;
+    line-height: 2.5;
+    padding: 0 10px;
+}
+.mmenu{
+    margin-top: -9px;
+    margin-left: -8px;
+    margin-right: -9px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 45px;
+    border-radius: 0;
+}
+.pi-comments:before{
+    font-size: 20px;
+    color: darkgray;
+    width: 50px;
+    height: 50px;
+}
+.btncomment{
+    background-color: white !important;
+    border: none !important;
+    float: right !important;
+    color: darkgray;
+}
+.ui-confirmdialog-yes{
+    margin-left: 15px !important;
+    background-color: #42B72A !important;
+}
+.ui-confirmdialog-no{
+    background-color: red !important;    
+}

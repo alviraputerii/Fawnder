@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Fawnder!</title>
+        <link rel="icon" 
+              href="resources/appdata/logoH.ico"/>
+        <meta charset="UTF-8"/>
+        <meta name="description" 
+              content="Meet a Partner for your Dog"/>
+        <meta name="author" 
+              content="1773031 - Haryo Bagas Assyafah, 1873004 - Alvira Puteri"/>
+        <h:outputStylesheet library="css" 
+                            name="forumManagePost.css"/>
+        <h:outputStylesheet name="primeicons/primeicons.css" 
+                            library="primefaces"/>
+    </h:head>
+    <h:body style="background-color: #d1f4fa">
+        <p:growl id="messages" 
+                 showDetail="true" 
+                 life="2100"/>
+        <h:form>
+            <p:megaMenu styleClass="mmenu">
+                <p:menuitem value="Back" 
+                            icon="pi pi-chevron-circle-left" 
+                            action="forum" 
+                            style="margin-top: 5px;margin-left: 15px;"/>
+            </p:megaMenu>
+        </h:form><br/><br/>
+        <h:form id="managePost">
+            <div class="dip">
+                <h1 style="margin-left: 20px;">#{forumManagedBean.managePostType}</h1>
+                <h:panelGrid columns="2" 
+                             width="90%">
+                    <p:outputLabel value="Title :" 
+                                   style="float: right;font-weight: bold"/>          
+                    <p:inputText value="#{forumManagedBean.editPost.subject}" 
+                                 placeholder="Title (required, max 50 characters)" 
+                                 required="true" 
+                                 requiredMessage="Please input title"/>            
+                    <h:panelGroup/><h:panelGroup/>
+                    <p:outputLabel value="Content :" 
+                                   style="float: right;font-weight: bold"/>          
+                    <p:inputText value="#{forumManagedBean.editPost.content}" 
+                                 placeholder="Do your thing..." 
+                                 required="true" 
+                                 requiredMessage="Please input content" 
+                                 style="height: 70px;"/> 
+                    <h:panelGroup/><h:panelGroup/><h:panelGroup/><h:panelGroup/>
+                    <p:outputLabel value="Select Topic :" 
+                                   style="float: right;font-weight: bold"/>          
+                    <h:selectOneMenu value="#{forumManagedBean.editPost.IDtopic.id}" 
+                                     required="true" 
+                                     requiredMessage="Please select topic">
+                        <f:selectItem itemLabel="Select Topic"
+                                      itemValue="#{null}"/>
+                        <f:selectItems value="#{forumManagedBean.modelTopic}" 
+                                       var="mt" 
+                                       itemLabel="#{mt.name}" 
+                                       itemValue="#{mt.id}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br/><br/>
+                <p:commandButton action="#{forumManagedBean.addOrEditPost()}" 
+                                 value="#{forumManagedBean.isAddPost ? 'Post' : 'Save'}" 
+                                 update="@form messages" 
+                                 style="float: right; margin-right: 30px;">
+                    <p:confirm header="Confirmation" 
+                               message="Are you sure?" 
+                               icon="pi pi-exclamation-triangle"/>
+                </p:commandButton>
+                <p:confirmDialog global="true" 
+                                 showEffect="fade" 
+                                 hideEffect="fade">
+                    <p:commandButton value="Yes" 
+                                     type="button" 
+                                     styleClass="ui-confirmdialog-yes" 
+                                     icon="pi pi-check" />
+                    <p:commandButton value="No" 
+                                     type="button" 
+                                     styleClass="ui-confirmdialog-no" 
+                                     icon="pi pi-times" />
+                </p:confirmDialog> 
+            </div>
+        </h:form>
+    </h:body>
+</html>
+
